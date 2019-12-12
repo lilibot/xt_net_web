@@ -115,6 +115,11 @@ namespace Task2_3User
             Console.WriteLine("Date of birth: {0:D}", dateOfBirth);
             Console.WriteLine($"Age: {Age}");
         }
+        public override string ToString()
+        {
+            string str = "Full name: " + surname + " " + name + " " + patronymic + ". Age: " + Age.ToString();
+            return str;
+        }
 
     }
 }
