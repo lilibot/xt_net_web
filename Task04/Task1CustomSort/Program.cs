@@ -20,7 +20,7 @@ namespace Task1CustomSort
                 PrintArray(array);
                 Console.WriteLine();
                 Console.WriteLine("Сортировка массива строк по длине строки и алфавиту, если строки равны: ");
-                string[] array2 = new string[] { "lalal", "vv", "dddddddddddddddddd", "a", "c", "b", "av", "dd" };
+                string[] array2 = new string[] { "lalal", "vv", "dddddddddddddddddd", "a", "c", "b", "av", "dd","ad", "lalaa" };
                 PrintArray(array2);
                 ArraySort(array2, (s1, s2) =>
                 {
