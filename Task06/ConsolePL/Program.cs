@@ -149,7 +149,7 @@ namespace ConsolePL
             foreach (var user in users)
             {
                 Console.WriteLine(user);
-                Console.Write("Awards: ");
+                Console.WriteLine("Awards: ");
                 foreach (var awardId in user.Awards)
                 {
                     Console.WriteLine(_awardLogic.GetById(awardId));
