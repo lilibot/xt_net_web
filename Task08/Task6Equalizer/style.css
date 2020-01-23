@@ -1,0 +1,36 @@
+body {
+    background: #333333;
+}
+
+.equalizer {
+    background: repeating-linear-gradient(to top, transparent, transparent 40px, #333 40px, #333 46px),
+    linear-gradient(to top, #ff8d02, #ffcf57);
+    width: 80px;
+    display: inline-block;
+    margin-right: 5px;
+    border-radius: 5px 5px 0 0;
+}
+
+.col1 {
+    height: 220px;
+}
+
+.col2 {
+    height: 85px;
+}
+
+.col3 {
+    height: 360px;
+}
+
+.col4 {
+    height: 450px;
+}
+
+.col5 {
+    height: 220px;
+}
+
+.col6 {
+    height: 130px;
+}
