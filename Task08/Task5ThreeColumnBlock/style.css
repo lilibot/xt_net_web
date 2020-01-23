@@ -1,0 +1,58 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #4d6278;
+}
+
+h3 {
+    color: #f56332;
+    margin: 10px 0;
+}
+
+.button {
+    background: #f56332;
+    display: inline-block;
+    padding: 5px 10px;
+    text-decoration: none;
+    color: #fff;
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.1);
+    border-radius: 2px;
+    margin-top: 10px;
+}
+
+.hosting {
+    width: 600px;
+    background-color: white;
+    overflow: hidden;
+    border-radius: 10px;
+    box-shadow: 0 25px 40px rgba(0, 0, 0, 0.4);
+    border-radius: 5px;
+    margin: auto;
+}
+
+.coloumn {
+    float: left;
+    width: 200px;
+    border-left: 1px solid #d9d9d9;
+    text-align: center;
+    margin: 10px 0;
+}
+
+.img-host {
+    width: 61px;
+    height: 42px;
+    background: url(host.jpg);
+    margin: auto;
+}
+
+.cloud {
+    background-position: 0 -42px;
+}
+
+.server {
+    background-position: 0 -84px;
+}

@@ -1,0 +1,20 @@
+.menu {
+    background-color: #f9e497;
+    width: 200px;
+    color: #880000;
+    border-radius: 10px;
+    font-size: 15px;
+    border: solid 1px #000;
+    box-shadow: 5px 5px #880000;
+}
+
+.menu li {
+    list-style-type: none;
+    line-height: 1.5;
+}
+
+ul {
+    margin: 0;
+    padding: 10;
+    padding-right: 0;
+}

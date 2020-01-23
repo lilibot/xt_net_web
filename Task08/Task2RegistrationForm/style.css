@@ -1,0 +1,44 @@
+form {
+    width: 400px;
+    color: #ffffff;
+    background-color: #0690cf;
+    border: solid 3px #0075b2;
+    border-right: solid 5px #0075b2;
+
+}
+div, h1, button{
+    margin-left: 20px;
+    margin-bottom: 20px;
+}
+label{
+    font-size: 18px;
+}
+h1{
+    font-weight: normal;
+    font-size: 26px;
+}
+input {
+    border: solid 1px #b2b4ba;
+    width:150px;
+    margin-top: 3px;
+}
+#email{
+    width:324px;
+}
+button {
+    height: 25px;
+    width: 80px;
+    background-color: #ffdf7f;
+    border: none;
+    margin-top: 10px;
+    font-size: 12px;
+}
+
+.pass {
+    display: inline-block;
+}
+
+hr {
+    margin-bottom: 30px;
+    margin-top: -10px;
+}
