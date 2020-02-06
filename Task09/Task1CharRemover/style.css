@@ -1,0 +1,23 @@
+textarea {
+	resize: none;
+	margin-top: 10px;
+	width: 95%;
+	height: 80px;
+	border: 1px solid;
+}
+
+input[type=submit] {
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
+#resultOfRemove {
+	margin-top: 10px;
+	width: 95%;
+	height: 80px;
+	border: 1px solid;
+}
+
+.IO {
+	padding-top: 10px;
+}

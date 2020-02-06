@@ -1,0 +1,32 @@
+<html>
+
+<head>
+    <link rel="stylesheet" type="text/css" href="style.css" />
+    <title>Task 9.1</title>
+    <script type="text/javascript" src="script.js"></script>
+</head>
+
+<body>
+    <h1>Char remover</h1>
+    <div>
+        <article>
+            Написать функцию, на вход которой приходит строка, состоящая из нескольких слов. Слова разделены пробельными
+            символами (пробел, табуляция) и знаками препинания (?!:;,.). Нужно вернуть строку, в которой будут удалены
+            все символы, повторяющиеся хоть в одном из слов более одного раза.<br>
+            Пример:<br>
+            Ввод: У попа была собака<br>
+            Результат: У о был собк<br>
+        </article>
+        <div class="IO">
+            Input text:
+            <textarea id="textArea">У попа была собака</textarea>
+        </div>
+        <input type="submit" value="Submit" id="removeDoubleChars"" />
+        <div class=" IO">
+        Result text:
+        <p id="resultOfRemove"></p>
+    </div>
+    </div>
+</body>
+
+</html>

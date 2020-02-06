@@ -1,0 +1,29 @@
+.container>div {
+    display: inline-block;
+}
+
+.container>div span {
+    display: block;
+}
+
+select {
+    width: 100px;
+    height: 100px;
+    overflow: hidden;
+}
+
+#buttons {
+    position: absolute;
+    left: 110px;
+    margin: 18 5;
+}
+
+#buttons input {
+    display: block;
+    width: 40px;
+}
+
+.right {
+    position: absolute;
+    left: 162px;
+}
