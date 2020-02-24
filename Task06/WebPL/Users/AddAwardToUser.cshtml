@@ -1,0 +1,57 @@
+﻿@using WebPL.Models;
+@using Entities;
+@{
+    if (!User.IsInRole("Admin"))
+    {
+        Response.SetStatus(HttpStatusCode.Forbidden);
+    }
+
+    Layout = "~/_Layout.cshtml";
+    string userId = Request.QueryString["userId"];
+
+    var awards = Common.AwardLogic.GetAll();
+    if (int.TryParse(userId, out int IdUser))
+    {
+        User user = Common.UserLogic.GetById(IdUser);
+        <div class="form-group">
+            <label> User name - @user.Name</label>
+            
+        </div>
+        if (IsPost)
+        {
+            string award = Request["award"];
+            if (int.TryParse(award, out int IdAward))
+            {
+                try
+                {
+                    Common.UserLogic.AddAward(IdUser, IdAward);
+                    Response.Redirect("~/Users/ShowUsers");
+                }
+                catch (Exception ex)
+                {
+                    <div class="alert alert-danger">
+                        @ex.Message
+                    </div>
+                }
+            }
+        }
+    }
+}
+<form method="post" class="form-inline" enctype="multipart/form-data">
+    <div class="form-group">
+        <label for="name">Select award: </label>
+        <select class="browser-default custom-select" name="award">
+            @foreach (Award award in awards)
+            {
+                <option value="@award.Id">@award.Title  </option>
+            }
+        </select>
+
+        <button type="submit" class="btn btn-info">Add award</button>
+        <br /><br />
+
+    </div>
+    <br />
+    <br />
+
+</form>

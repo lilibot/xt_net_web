@@ -16,10 +16,10 @@ namespace Ioc
         public static IUserDao UserDao { get; private set; }
 
         public static IUserLogic UserLogic { get; private set; }
-
-        public static IAwardDao AwardDao { get; set; }
-
-        public static IAwardLogic AwardLogic { get; set; }
+        public static IAccountLogic AccountLogic { get; private set; }
+        public static IAwardDao AwardDao { get; private set; }
+        public static IAccountDao AccountDao { get; private set; }
+        public static IAwardLogic AwardLogic { get; private set; }
 
         static DependencyResolver()
         {
@@ -29,6 +29,13 @@ namespace Ioc
                 UserDao = new FileUserDao();
                 AwardDao = new FileAwardDao();
             }
+            else if (DALappSetting == "DB")
+            {
+                UserDao = new DBUserDao();
+                AwardDao = new DBAwardDao();
+                AccountDao = new DBAccountDao();
+                AccountLogic = new AccountLogic(AccountDao);
+            }
             else
             {
                 UserDao = new MemoryUserDao();
@@ -37,6 +44,7 @@ namespace Ioc
 
             UserLogic = new UserLogic(UserDao);
             AwardLogic = new AwardLogic(AwardDao);
+
         }
 
         private static string ReadSetting(string key)

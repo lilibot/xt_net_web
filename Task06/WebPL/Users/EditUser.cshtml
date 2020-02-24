@@ -1,0 +1,59 @@
+﻿@using WebPL.Models;
+@using Entities;
+@using System.Globalization;
+
+@{
+    if (!User.IsInRole("Admin"))
+    {
+        Response.SetStatus(HttpStatusCode.Forbidden);
+    }
+
+    Layout = "~/_Layout.cshtml";
+    string userId = Request.QueryString["userId"];
+    if (int.TryParse(userId, out int id))
+    {
+        User user = Common.UserLogic.GetById(id);
+        <div class="form-group">
+            <label> User name - @user.Name</label>
+            <br />
+            <label> User dirthday - @user.DateOfBirth</label>
+        </div>
+        if (IsPost)
+        {
+            var name = Request["name"];
+            var dateOfBirth = Request["date"];
+            try
+            {
+                if (String.IsNullOrEmpty(name))
+                {
+                    throw new ArgumentException("Name can't be null or empty");
+                }
+                DateTime tempDate;
+                if (DateTime.TryParseExact(dateOfBirth, Common.DateFormat, CultureInfo.InvariantCulture, DateTimeStyles.None, out tempDate))
+                {
+                    Common.UserLogic.Update(id, new User { Name = name, DateOfBirth = tempDate });
+                    Response.Redirect("~/Users/ShowUsers");
+                }
+
+            }
+
+            catch (Exception ex)
+            {
+                <div class="alert alert-danger">
+                    @ex.Message
+                </div>
+            }
+        }
+    }
+}
+
+
+<form method="post" class="form-inline" enctype="multipart/form-data">
+    <div class="form-group">
+        <label for="name">New name: </label>
+        <input type="text" class="form-control" id="name" name="name" placeholder="Enter the name">
+        <label for="date">Birthday</label>
+        <input type="date" class="form-control" id="date" name="date">
+        <button type="submit" class="btn btn-info">Edit user</button>
+    </div>
+</form>

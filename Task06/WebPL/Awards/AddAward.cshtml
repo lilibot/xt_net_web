@@ -1,0 +1,55 @@
+﻿@using WebPL.Models;
+@using Entities;
+@{
+    if (!User.IsInRole("Admin"))
+    {
+        Response.SetStatus(HttpStatusCode.Forbidden);
+    }
+
+    Layout = "~/_Layout.cshtml";
+    if (IsPost)
+    {
+        var title = Request["title"];
+        WebImage photo = null;
+        try
+        {
+            if (String.IsNullOrWhiteSpace(title))
+            {
+                throw new ArgumentException("Title can't be null or empty");
+            }
+
+            photo = WebImage.GetImageFromRequest();
+            if (photo != null)
+            {
+                photo.Resize(100, 100, preserveAspectRatio: true, preventEnlarge: true);
+                byte[] data = photo.GetBytes(photo.ImageFormat);
+                Common.AwardLogic.Add(new Award { Title = title, Image = data });
+            }
+            else
+            {
+                Common.AwardLogic.Add(new Award { Title = title });
+            }
+            Response.Redirect("~/Awards/ShowAwards");
+        }
+        catch (Exception ex)
+        {
+            <div class="alert alert-danger">
+                @ex.Message
+            </div>
+        }
+    }
+}
+
+
+<form method="post" class="form-inline" enctype="multipart/form-data">
+    <div class="form-group">
+        <label for="name">Name: </label>
+        <input type="text" class="form-control" id="title" name="title" placeholder="Enter title">
+        <button type="submit" class="btn btn-info"> Add Award</button>
+        <br /><br />
+        <input type="file" accept="image/*" id="photo" name="photo">
+    </div>
+    <br />
+    <br />
+    <img id="output_image" />
+</form>

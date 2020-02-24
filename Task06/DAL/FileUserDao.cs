@@ -12,8 +12,8 @@ namespace DAL
 {
     public class FileUserDao : IUserDao
     {
-        private readonly string _fileUsers = @".\users.txt";
-        private readonly string _fileUsersAwards = @".\usersAwards.txt";
+        private readonly string _fileUsers = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "files//users.txt");// @".\users.txt";
+        private readonly string _fileUsersAwards = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "files//usersAwards.txt");//@".\usersAwards.txt";
         private const string DateFormat = "dd.MM.yyyy";
 
         public FileUserDao()
@@ -120,6 +120,16 @@ namespace DAL
             }
             string maxId = File.ReadAllLines(_fileUsers).Select(str => str.Split('|')[0]).Max();
             return int.Parse(maxId);
+        }
+
+        public bool Update(int id, User user)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<int> GetUsersAwardsIds(int userId)
+        {
+            throw new NotImplementedException();
         }
     }
 }

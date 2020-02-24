@@ -10,7 +10,7 @@ namespace DAL
 {
     public class FileAwardDao : IAwardDao
     {
-        private readonly string _fileAwards = @".\awards.txt";
+        private readonly string _fileAwards = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "files//awards.txt");//@".\awards.txt";
         public FileAwardDao()
         {
             if (!File.Exists(_fileAwards))
@@ -21,7 +21,7 @@ namespace DAL
         public Award Add(Award award)
         {
             award.Id = GetMaxId() + 1;
-            File.AppendAllLines(_fileAwards, new[] { $"{award.Id}|{award.Title}" });
+            File.AppendAllLines(_fileAwards, new[] { $"{award.Id}|{award.Title}" });//|{ Encoding.Default.GetString(award.Image)}" });
             return award;
         }
 
@@ -38,7 +38,8 @@ namespace DAL
                     .Select(arr => new Award
                     {
                         Id = int.Parse(arr[0]),
-                        Title = arr[1]
+                        Title = arr[1]//,
+                        //Image= Encoding.Default.GetBytes(arr[2])
                     });
             }
             catch
@@ -75,6 +76,16 @@ namespace DAL
             }
             string maxId = File.ReadAllLines(_fileAwards).Select(str => str.Split('|')[0]).Max();
             return int.Parse(maxId);
+        }
+
+        public bool Update(int id, Award award)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool IsAwarded(int id)
+        {
+            throw new NotImplementedException();
         }
     }
 }

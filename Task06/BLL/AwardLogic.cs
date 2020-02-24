@@ -27,14 +27,24 @@ namespace BLL
             return _awardDao.GetAll();
         }
 
+
         public Award GetById(int id)
         {
             return _awardDao.GetById(id);
         }
 
+        public bool IsAwarded(int id)
+        {
+            return _awardDao.IsAwarded(id);
+        }
+
         public bool RemoveById(int id)
         {
             return _awardDao.RemoveById(id);
+        }
+        public bool Update(int id, Award award)
+        {
+            return _awardDao.Update(id, award);
         }
     }
 }

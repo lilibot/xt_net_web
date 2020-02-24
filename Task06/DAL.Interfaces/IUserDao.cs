@@ -17,5 +17,7 @@ namespace DAL.Interfaces
         bool AddAward(int userId, int awardId);
 
         bool RemoveUsersAward(int userId, int awardId);
+        bool Update(int id, User user);
+        IEnumerable<int> GetUsersAwardsIds(int userId);
     }
 }

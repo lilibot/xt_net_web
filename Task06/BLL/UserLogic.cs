@@ -36,6 +36,11 @@ namespace BLL
             return _userDao.GetById(id);
         }
 
+        public IEnumerable<int> GetUsersAwardsIds(int userId)
+        {
+            return _userDao.GetUsersAwardsIds(userId);
+        }
+
         public bool RemoveById(int id)
         {
             return _userDao.RemoveById(id);
@@ -44,6 +49,11 @@ namespace BLL
         public bool RemoveUsersAward(int userId, int awardId)
         {
             return _userDao.RemoveUsersAward(userId, awardId);
+        }
+
+        public bool Update(int id, User user)
+        {
+            return _userDao.Update(id, user);
         }
     }
 }

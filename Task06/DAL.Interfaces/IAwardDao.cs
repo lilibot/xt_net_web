@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Entities;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace DAL.Interfaces
 {
@@ -13,6 +14,7 @@ namespace DAL.Interfaces
         Award GetById(int id);
         IEnumerable<Award> GetAll();
         bool RemoveById(int id);
-
+        bool Update(int id, Award award);
+        bool IsAwarded(int id);
     }
 }

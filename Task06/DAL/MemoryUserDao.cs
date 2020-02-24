@@ -49,6 +49,11 @@ namespace DAL
             return user;
         }
 
+        public IEnumerable<int> GetUsersAwardsIds(int userId)
+        {
+            throw new NotImplementedException();
+        }
+
         public bool RemoveById(int id)
         {
             bool removeResult = _users.Remove(id);
@@ -59,6 +64,11 @@ namespace DAL
         public bool RemoveUsersAward(int userId, int awardId)
         {
             return _users[userId].Awards.Remove(awardId);
+        }
+
+        public bool Update(int id, User user)
+        {
+            throw new NotImplementedException();
         }
     }
 }

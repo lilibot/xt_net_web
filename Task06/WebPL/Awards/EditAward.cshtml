@@ -1,0 +1,84 @@
+﻿@using WebPL.Models;
+@using Entities;
+
+@{
+    if (!User.IsInRole("Admin"))
+    {
+        Response.SetStatus(HttpStatusCode.Forbidden);
+    }
+
+    Layout = "~/_Layout.cshtml";
+    string awardId = Request.QueryString["awardId"];
+    if (int.TryParse(awardId, out int id))
+    {
+        Award award = Common.AwardLogic.GetById(id);
+        <div class="form-group">
+            <label> Award name - @award.Title</label>
+            <br />
+            @if (award.Image != null)
+            {
+                <img class="awardList_item__image" src="data:image/jpeg;base64,@Convert.ToBase64String(@award.Image)" alt="Award image" />
+            }
+            else
+            {
+                <img class="awardList_item__image" src=@Award.GetDefaultImage() alt="Award image" />
+
+            }
+        </div>
+        if (IsPost)
+        {
+
+            try
+            {
+
+
+                var title = Request["title"];
+
+                if (String.IsNullOrWhiteSpace(title))
+                {
+                    throw new ArgumentException("Title can't be null or white space");
+                }
+
+                Common.AwardLogic.Update(id, new Award { Title = title });
+
+                WebImage photo = null;
+                photo = WebImage.GetImageFromRequest();
+                if (photo != null)
+                {
+                    photo.Resize(100, 100, preserveAspectRatio: true, preventEnlarge: true);
+                    byte[] data = photo.GetBytes(photo.ImageFormat);
+                    Common.AwardLogic.Update(id, new Award { Title = title, Image = data });
+                }
+                else
+                {
+                    Common.AwardLogic.Update(id, new Award { Title = title });
+                }
+                Response.Redirect("~/Awards/ShowAwards");
+            }
+
+
+            catch (Exception ex)
+            {
+                <div class="alert alert-danger">
+                    @ex.Message
+                </div>
+            }
+        }
+    }
+}
+
+
+
+
+<form method="post" class="form-inline" enctype="multipart/form-data">
+    <div class="form-group">
+        <label for="name">New name: </label>
+        <input type="text" class="form-control" id="title" name="title" placeholder="Enter the title">
+        <button type="submit" class="btn btn-info">Edit Award</button>
+        <br /><br />
+        <input type="file" accept="image/*" id="photo" name="photo">
+    </div>
+    <br />
+    <br />
+    <img id="output_image" />
+</form>

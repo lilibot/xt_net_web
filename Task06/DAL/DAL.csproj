@@ -41,6 +41,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DBAccountDao.cs" />
+    <Compile Include="DBAwardDao.cs" />
+    <Compile Include="DBUserDao.cs" />
     <Compile Include="FileAwardDao.cs" />
     <Compile Include="FileUserDao.cs" />
     <Compile Include="MemoryAwardDao.cs" />

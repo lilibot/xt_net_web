@@ -1,0 +1,47 @@
+﻿@using System.Globalization;
+@using WebPL.Models;
+@using Entities;
+@{
+    if (!User.IsInRole("Admin"))
+    {
+        Response.SetStatus(HttpStatusCode.Forbidden);
+    }
+    Layout = "~/_Layout.cshtml";
+    if (IsPost)
+    {
+        var name = Request["name"];
+        var dateOfBirth = Request["date"];
+        try
+        {
+            if (String.IsNullOrEmpty(name))
+            {
+                throw new ArgumentException("Name can't be null or empty");
+            }
+            DateTime tempDate;
+            if (DateTime.TryParseExact(dateOfBirth, Common.DateFormat, CultureInfo.InvariantCulture, DateTimeStyles.None, out tempDate))
+            {
+                Common.UserLogic.Add(new User { Name = name, DateOfBirth = tempDate });
+                Response.Redirect("~/Users/ShowUsers");
+            }
+        }
+        catch (Exception ex)
+        {
+            <div class="alert alert-danger">
+                @ex.Message
+            </div>
+        }
+    }
+}
+
+
+<form method="post" class="form-inline">
+    <div class="form-group">
+        <label for="name">Name: </label>
+        <input type="text" class="form-control" id="name" name="name" placeholder="Enter name">
+    </div>
+    <div class="form-group">
+        <label for="date">Birthday</label>
+        <input type="date" class="form-control" id="date" name="date">
+    </div>
+    <button type="submit" class="btn btn-info"> Add user</button>
+</form>

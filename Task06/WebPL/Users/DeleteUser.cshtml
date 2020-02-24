@@ -1,0 +1,27 @@
+﻿@using WebPL.Models;
+@using Entities;
+@{
+    if (!User.IsInRole("Admin"))
+    {
+        Response.SetStatus(HttpStatusCode.Forbidden);
+    }
+
+    Layout = "~/_Layout.cshtml";
+    string userId = Request.QueryString["userId"];
+    if (int.TryParse(userId, out int result))
+    {
+        try
+        {
+            Common.UserLogic.RemoveById(result);
+            Response.Redirect("~/Users/ShowUsers");
+
+        }
+        catch (Exception ex)
+        {
+            <div class="alert alert-danger">
+                @ex.Message
+            </div>
+        }
+    }
+}
+

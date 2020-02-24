@@ -1,0 +1,59 @@
+﻿@using WebPL.Models;
+@using Entities;
+@{
+    if (!User.IsInRole("Admin"))
+    {
+        Response.SetStatus(HttpStatusCode.Forbidden);
+    }
+
+    Layout = "~/_Layout.cshtml";
+    string awardId = Request.QueryString["awardId"];
+    if (IsPost)
+    {
+        int id;
+        var IdString = Request["awardId"];
+        if (int.TryParse(IdString, out id))
+        {
+            try
+            {
+                Common.AwardLogic.RemoveById(id);
+                Response.Redirect("~/Awards/ShowAwards");
+
+            }
+            catch (Exception ex)
+            {
+                <div class="alert alert-danger">
+                    @ex.Message
+                </div>
+            }
+        }
+    }
+    if (int.TryParse(awardId, out int result))
+    {
+        if (Common.AwardLogic.IsAwarded(result))
+        {
+            <form method="post">
+                <p>One or more users have this award. Do you want to continue?</p>
+                <input type="hidden" name="awardId" value="@result" />
+                <a class="btn btn-outline-dark" role="button" href="#" onclick="history.back();">Отмена</a><button type="submit" class="btn btn-success">Yes, I want</button>
+            </form>
+            <br />
+        }
+        else
+        {
+            try
+            {
+                Common.AwardLogic.RemoveById(result);
+                Response.Redirect("~/Awards/ShowAwards");
+
+            }
+            catch (Exception ex)
+            {
+                <div class="alert alert-danger">
+                    @ex.Message
+                </div>
+            }
+        }
+    }
+}
+

@@ -1,0 +1,76 @@
+﻿@using WebPL.Models;
+@using Entities;
+@{
+    Layout = "~/_Layout.cshtml";
+}
+<div class="panel panel-default">
+    <div class="panel-body">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Name</th>
+                    <th>Birthday</th>
+                    <th>Age</th>
+                    @if (User.IsInRole("User"))
+                    {
+                        <th style="width:300px;">Awards</th>
+                    }
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                    }
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var user in Common.UserLogic.GetAll())
+                {
+                    <tr>
+                        <td>@user.Id</td>
+                        <td>@user.Name</td>
+                        <td>@user.DateOfBirth.ToShortDateString()</td>
+                        <td>@user.Age</td>
+                        @if (User.IsInRole("User"))
+                        {
+                            <td>
+                                @foreach (var awardId in Common.UserLogic.GetUsersAwardsIds(user.Id))
+                                {
+                                    Award award = Common.AwardLogic.GetById(awardId);
+                                    <div style="width:250px;">
+                                        @if (award.Image != null)
+                                        {
+                                            <img class="awardList_item__image" src="data:image/jpeg;base64,@Convert.ToBase64String(@award.Image)" alt="Award image" />
+                                        }
+                                        else
+                                        {
+                                            <img class="awardList_item__image" src=@Award.GetDefaultImage() alt="Award image" />
+
+                                        }
+                                        @award.Title
+                                        <a class="btn btn-outline-dark" role="button" href="~/Awards/DeleteAward?awardId=@award.Id">Delete award</a>
+                                    </div>
+                                }
+                            </td>
+                        }
+
+                        @if (User.IsInRole("Admin"))
+                        {
+
+                            <td>
+                                <a class="btn btn-outline-dark" role="button" href="~/Users/EditUser?userId=@user.Id">Edit</a>
+                            </td>
+                            <td>
+                                <a class="btn btn-outline-dark" role="button" href="~/Users/AddAwardToUser?userId=@user.Id">AddAward</a>
+                            </td>
+                            <td>
+                                <a class="btn btn-outline-dark" role="button" href="~/Users/DeleteUser?userId=@user.Id">Delete</a>
+                            </td>
+                        }
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
